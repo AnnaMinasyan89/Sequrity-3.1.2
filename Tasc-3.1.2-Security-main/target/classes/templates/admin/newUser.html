@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8"/>
+    <title>Create New User</title>
+</head>
+<body>
+<div align="center">
+    <h1>Create New User</h1>
+    <br/>
+    <form action="#" th:action="@{/admin/save}" th:object="${user}"
+          method="post">
+        <table border="0" cellpadding="10">
+            <tr>
+                <td>User Name:</td>
+                <td><input type="text" th:field="*{name}"/></td>
+                <td style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name Error
+                </td>
+            </tr>
+            <tr>
+                <td>User mail:</td>
+                <td><input type="text" th:field="*{email}"/></td>
+                <td style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email Error
+                </td>
+            </tr>
+            <tr>
+                <td>User age:</td>
+                <td><input type="text" th:field="*{age}"/></td>
+                <td style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">age Error
+                </td>
+            </tr>
+            <tr>
+                <td>User password:</td>
+                <td><input type="text" th:field="*{password}"/></td>
+                <td style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">age Error
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Roles:
+                        <input type="checkbox" name="roles"
+                               th:each="role : ${allRoles}"
+                               th:text="${role.name}"
+                               th:value="${role.id}"
+                               th:field="*{roleSet}"
+                        />
+                    </label>
+                </td>
+            </tr>
+            </td>
+            <td colspan="2">
+                <button type="submit">Save</button>
+            </td>
+            </td>
+        </table>
+    </form>
+    <a href="#" th:href="@{/logout}">Log Out</a>
+</div>
+</body>
+</html>

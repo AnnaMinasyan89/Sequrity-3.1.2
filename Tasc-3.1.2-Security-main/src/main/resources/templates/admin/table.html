@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>User table</title>
+    <style>table th, table td {padding: 15px;} </style>
+</head>
+
+<body>
+<div align="center">
+    <h1>Users</h1>
+    <br/><br/>
+    <table th:border="1">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>E-mail</th>
+            <th>Age</th>
+            <th>Password</th>
+            <th>Role</th>
+            <th>Operation</th>
+        </tr>
+
+        <tr th:each="lst : ${list}">
+            <td th:utext="${lst.getId()}">Id</td>
+            <td th:utext="${lst.getName()}">Name</td>
+            <td th:utext="${lst.getEmail()}">Mail</td>
+            <td th:utext="${lst.getAge()}">Age</td>
+            <td th:utext="${lst.getPassword()}">Password</td>
+            <td th:utext="${lst.getRoleSet()}">Role</td>
+            <td>
+                <a th:href="@{'admin/edit/' + ${lst.getId()}}">Edit</a>
+                &nbsp;&nbsp;&nbsp;
+                <a th:href="@{'admin/delete/' + ${lst.getId()}}">Delete</a>
+            </td>
+        </tr>
+
+    </table>
+    <br>
+    <a href="/admin/new">Create New User</a>
+    <br/><br/>
+    <!--  <a href="/logout">Logout</a>-->
+    <a href="#" th:href="@{/logout}">Log Out</a>
+</div>
+</body>
+</html>
