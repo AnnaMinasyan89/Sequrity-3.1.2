@@ -11,12 +11,12 @@
     <br/>
     <form action="#" th:action="@{/admin/update/{id}(id=${user.id})}" th:object="${user}" method="post">
         <table border="0" cellpadding="10">
-            <tr>
+         <!--   <tr>
                 <td>User ID:</td>
                 <td>
                     <input type="text" th:field="*{id}" readonly="readonly"/>
                 </td>
-            </tr>
+            </tr>-->
             <tr>
                 <td>User Name:</td>
                 <td>
@@ -24,7 +24,7 @@
                     <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name Error</span>
                 </td>
             </tr>
-            <tr>
+           <!-- <tr>
                 <td>Mail:</td>
                 <td><input type="text" th:field="*{email}"/></td>
                 <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email Error</span>
@@ -33,7 +33,7 @@
                 <td>Age:</td>
                 <td><input type="text" th:field="*{age}"/></td>
                 <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}">age Error</span>
-            </tr>
+            </tr>-->
             <tr>
                 <td>Password:</td>
                 <td><input type="text" th:field="*{password}"/></td>

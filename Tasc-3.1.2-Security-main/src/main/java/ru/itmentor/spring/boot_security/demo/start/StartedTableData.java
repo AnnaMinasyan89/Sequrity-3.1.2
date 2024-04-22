@@ -35,13 +35,13 @@ public class StartedTableData implements CommandLineRunner {
         admin_roles.add(adminrole);
 
 
-        User admin = new User(1L, "admin", 48, "admin@ex.com",  "admin", admin_roles);
+        User admin = new User(1L, "admin",  "admin", admin_roles);
         userRepository.save(admin);
 
         Set<Role> user_roles = new HashSet<>();
         user_roles.add(userrole);
 
-        User user = new User(2L, "user", 22, "user@ex.com", "user", user_roles);
+        User user = new User(2L, "user", "user", user_roles);
         userRepository.save(user);
 
     }

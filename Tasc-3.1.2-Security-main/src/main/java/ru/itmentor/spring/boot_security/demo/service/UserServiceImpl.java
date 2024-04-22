@@ -3,6 +3,7 @@ package ru.itmentor.spring.boot_security.demo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itmentor.spring.boot_security.demo.repository.RoleRepository;
 import ru.itmentor.spring.boot_security.demo.repository.UserRepository;
@@ -18,17 +19,21 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     @Transactional
-    public void addUser(User user) {
-        userRepository.save(user);
+    public User addUser(User user) {
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+      return   userRepository.save(user);
     }
 
     @Override
@@ -37,9 +42,8 @@ public class UserServiceImpl implements UserService {
         User updatedUser = userRepository.getById(id);
         if (updatedUser != null) {
             updatedUser.setName(user.getUsername());
-            updatedUser.setEmail(user.getEmail());
-            updatedUser.setAge(user.getAge());
-            updatedUser.setPassword(user.getPassword());
+            String encodedPassword = passwordEncoder.encode(user.getPassword());
+            updatedUser.setPassword(encodedPassword);
             updatedUser.setRoleSet(user.getRoleSet());
             userRepository.save(updatedUser);
         }

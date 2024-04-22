@@ -46,18 +46,24 @@
     <br/>
     <table border="1" align="center" th:object="${user}" th:if="${user != null}">
         <tr>
-            <td>User Name:</td><td th:text="*{name}"></td>
+            <td>ID:</td><td th:text="*{id}"></td>
         </tr>
         <tr>
+            <td>User Name:</td><td th:text="*{name}"></td>
+        </tr>
+       <!-- <tr>
             <td>Age:</td><td th:text="*{age}"></td>
         </tr>
         <tr></tr>
         <tr>
             <td>Mail:</td> <td th:text="*{email}"></td>
         </tr>
-        <tr></tr>
+        <tr></tr>-->
         <tr>
             <td>Password:</td><td th:text="*{password}"></td>
+        </tr>
+        <tr>
+            <td>Roles:</td><td th:text="*{roleSet}"></td>
         </tr>
         <tr></tr>
     </table>

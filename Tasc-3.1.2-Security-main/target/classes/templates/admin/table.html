@@ -15,18 +15,18 @@
         <tr>
             <th>Id</th>
             <th>Name</th>
-            <th>E-mail</th>
-            <th>Age</th>
+           <!-- <th>E-mail</th>
+            <th>Age</th>-->
             <th>Password</th>
             <th>Role</th>
-            <th>What to do?</th>
+            <th>Operation</th>
         </tr>
 
         <tr th:each="lst : ${list}">
             <td th:utext="${lst.getId()}">Id</td>
             <td th:utext="${lst.getName()}">Name</td>
-            <td th:utext="${lst.getEmail()}">Mail</td>
-            <td th:utext="${lst.getAge()}">Age</td>
+            <!--<td th:utext="${lst.getEmail()}">Mail</td>
+            <td th:utext="${lst.getAge()}">Age</td>-->
             <td th:utext="${lst.getPassword()}">Password</td>
             <td th:utext="${lst.getRoleSet()}">Role</td>
             <td>
