@@ -1,5 +1,6 @@
 package ru.itmentor.spring.boot_security.demo.restController;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,9 +22,8 @@ public class RestUserController {
             User user = (User) principal;
             return ResponseEntity.ok(user);
         }
-        throw new UserNotFoundException();
+       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
 
 
 }

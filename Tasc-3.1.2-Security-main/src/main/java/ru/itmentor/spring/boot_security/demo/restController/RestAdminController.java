@@ -5,7 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.itmentor.spring.boot_security.demo.model.User;
-import ru.itmentor.spring.boot_security.demo.service.UserService;
+import ru.itmentor.spring.boot_security.demo.service.UserServiceImpl;
+import ru.itmentor.spring.boot_security.demo.util.UpdateUserException;
 import ru.itmentor.spring.boot_security.demo.util.UserErrorResponse;
 import ru.itmentor.spring.boot_security.demo.util.UserNotFoundException;
 
@@ -15,9 +16,9 @@ import java.util.List;
 @RequestMapping("api/admin/users")
 public class RestAdminController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
-    public RestAdminController(UserService userService) {
+    public RestAdminController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
@@ -38,16 +39,30 @@ public class RestAdminController {
        return userService.addUser(user);
     }
 
-    @PutMapping("/{id}")
-    public String updateUser(@PathVariable long id, @RequestBody User user) {
-        userService.updateUser(id, user);
-        return "User with id \" + id + \" update";
-    }
+   @PutMapping("/{id}")
+   public ResponseEntity<String> updateUser(@PathVariable long id, @RequestBody User newUser) {
+       try {
+           userService.updateUser(id, newUser);
+           return new ResponseEntity<>("User updated successfully", HttpStatus.OK);
+       } catch (UserNotFoundException e) {
+           return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+       } catch (UpdateUserException e) {
+           return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+       } catch (Exception e) {
+           return new ResponseEntity<>("An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR);
+       }
+   }
 
     @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable long id) {
-        userService.deleteUser(id);
-        return "User with id " + id + " delete";
+    public ResponseEntity<String> deleteUser(@PathVariable long id) {
+        try {
+            userService.deleteUser(id);
+            return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
+        } catch (UserNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>("An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 
